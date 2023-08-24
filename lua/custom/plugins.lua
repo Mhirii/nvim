@@ -1,4 +1,8 @@
 local plugins = {
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+  },
   {"elkowar/yuck.vim", lazy = false},
   {
     "williamboman/mason.nvim",
