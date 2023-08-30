@@ -3,13 +3,19 @@ local plugins = {
     "christoomey/vim-tmux-navigator",
     lazy = false,
   },
-  {"elkowar/yuck.vim", lazy = false},
+
+  {"elkowar/yuck.vim",
+    lazy = false,
+    ft = "yuck",
+  },
+
   {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        -- Rust Specefic
         "rust-analyzer",
-        -- Python
+        -- Python Specefic
         "black",
         "debugpy",
         "mypy",
@@ -18,6 +24,7 @@ local plugins = {
       }
     }
   },
+
   {
     "neovim/nvim-lspconfig",
     config = function ()
@@ -25,6 +32,7 @@ local plugins = {
       require "custom.configs.lspconfig"
     end,
   },
+
   {
     "rust-lang/rust.vim",
     ft = "rust",
@@ -32,6 +40,7 @@ local plugins = {
       vim.g.rustfmt_autosave = 1
     end
   },
+
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",
@@ -43,6 +52,7 @@ local plugins = {
       require('rust-tools').setup(opts)
     end
   },
+
   {
     "rcarriga/nvim-dap-ui",
     dependencies = "mfussenegger/nvim-dap",
@@ -61,12 +71,14 @@ local plugins = {
       end
     end
   },
+
   {
     "mfussenegger/nvim-dap",
     config = function (_, opts)
       require("core.utils").load_mappings("dap")
     end
   },
+
   {
     'saecki/crates.nvim',
     ft = {"toml"},
@@ -76,6 +88,7 @@ local plugins = {
       crates.show()
     end
   },
+
   {
     "hrsh7th/nvim-cmp",
     opts = function ()
@@ -84,6 +97,7 @@ local plugins = {
       return M
     end
   },
+
 -- Python
   {
     "jose-elias-alvarez/null-ls.nvim",
@@ -92,6 +106,7 @@ local plugins = {
       return require "custom.configs.null-ls"
     end,
   },
+
   {
     "mfussenegger/nvim-dap-python",
     ft = "python",
@@ -105,5 +120,30 @@ local plugins = {
       require("core.utils").load_mappings("dap_python")
     end,
   },
+
+  -- Extra Utility
+  {
+    "simrat39/symbols-outline.nvim",
+    lazy=false,
+    opts = function ()
+      return require "custom.configs.symbols"
+    end,
+    config = function(_, opts)
+      require("symbols-outline").setup(opts)
+      require("core.utils").load_mappings("symbols_outline")
+    end
+  },
+
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
+  },
 }
+
 return plugins

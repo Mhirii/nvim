@@ -27,4 +27,10 @@ M.dap_python = {
   }
 }
 
+M.symbols_outline = {
+  plugin = true,
+  n = {
+    ["<leader>s"] = {"<cmd> SymbolsOutline <CR>"}
+  }
+}
 return M
