@@ -21,6 +21,8 @@ local plugins = {
         "mypy",
         "ruff",
         "pyright",
+        -- Go Specefic
+        "gopls",
       }
     }
   },
@@ -54,6 +56,13 @@ local plugins = {
   },
 
   {
+    "mfussenegger/nvim-dap",
+    config = function (_, opts)
+      require("core.utils").load_mappings("dap")
+    end
+  },
+
+  {
     "rcarriga/nvim-dap-ui",
     dependencies = "mfussenegger/nvim-dap",
     config = function()
@@ -69,13 +78,6 @@ local plugins = {
       dap.listeners.before.event_exited["dapui_config"] = function()
         dapui.close()
       end
-    end
-  },
-
-  {
-    "mfussenegger/nvim-dap",
-    config = function (_, opts)
-      require("core.utils").load_mappings("dap")
     end
   },
 
@@ -101,7 +103,7 @@ local plugins = {
 -- Python
   {
     "jose-elias-alvarez/null-ls.nvim",
-    ft = {"python"},
+    ft = {"python", "go"},
     opts = function()
       return require "custom.configs.null-ls"
     end,
@@ -118,6 +120,31 @@ local plugins = {
       local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
       require("dap-python").setup(path)
       require("core.utils").load_mappings("dap_python")
+    end,
+  },
+
+  --Go 
+  {
+   "dreamsofcode-io/nvim-dap-go",
+    ft = "go",
+    dependencies = "mfussenegger/nvim-dap",
+    config = function (_, opts)
+      require("dap-go").setup(opts)
+    end
+  },
+  -- Use dreamsofcode fork if the console error issue happens
+  -- {
+  -- "leoluz/nvim-dap-go",
+  -- },
+{
+    "olexsmir/gopher.nvim",
+    ft = "go",
+    config = function(_, opts)
+      require("gopher").setup(opts)
+      require("core.utils").load_mappings("gopher")
+    end,
+    build = function()
+      vim.cmd [[silent! GoInstallDeps]]
     end,
   },
 
@@ -144,6 +171,8 @@ local plugins = {
         })
     end
   },
+
 }
+
 
 return plugins

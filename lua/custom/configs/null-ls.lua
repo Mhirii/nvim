@@ -3,9 +3,15 @@ local null_ls = require('null-ls')
 
 local opts = {
   sources = {
+    -- Python
     null_ls.builtins.formatting.black,
     null_ls.builtins.diagnostics.mypy,
-    null_ls.builtins.diagnostics.ruff
+    null_ls.builtins.diagnostics.ruff,
+    -- Go
+    null_ls.builtins.formatting.gofumpt,
+    null_ls.builtins.formatting.gofmt, -- less strict than gofumpt
+    null_ls.builtins.formatting.goimports_reviser,
+    null_ls.builtins.formatting.golines,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
