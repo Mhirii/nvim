@@ -67,6 +67,44 @@ M.gopher = {
   }
 }
 
+M.lspsaga = {
+  n = {
+    ["<leader>."] = { "<CMD>CodeActionMenu<CR>", "󰅱 Code Action" },
+    ["<leader>gf"] = {
+      function()
+        vim.cmd "Lspsaga lsp_finder"
+      end,
+      " Go to definition",
+    },
+    ["gd"] = {
+      "<CMD>Lspsaga goto_definition<CR>",
+      " Go to definition",
+    },
+    ["<leader>lp"] = {
+      "<CMD>Lspsaga peek_definition<CR>",
+      " Peek definition",
+    },
+    ["<leader>k"] = {
+      -- "<CMD>Lspsaga hover_doc<CR>",
+      function()
+        require("pretty_hover").hover()
+      end,
+      "󱙼 Hover lsp",
+    },
+    ["<leader>o"] = { "<CMD>Lspsaga outline<CR>", " Show Outline" },
+    --  LSP
+    ["gr"] = { "<CMD>Telescope lsp_references<CR>", " Lsp references" },
+    ["[d"] = { "<CMD>Lspsaga diagnostic_jump_prev<CR>", " Prev Diagnostic" },
+    ["]d"] = { "<CMD>Lspsaga diagnostic_jump_next<CR>", " Next Diagnostic" },
+    ["<leader>qf"] = {
+      function()
+        vim.diagnostic.setloclist()
+      end,
+      "󰁨 Lsp Quickfix",
+    },
+  },
+}
+
 M.symbols_outline = {
   plugin = true,
   n = {

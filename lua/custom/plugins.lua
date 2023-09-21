@@ -148,6 +148,28 @@ local plugins = {
     end,
   },
 
+
+  -- LSP
+  {
+    "nvimdev/lspsaga.nvim",
+    event = "LspAttach",
+    config = function()
+      require "custom.configs.lspsaga"
+    end,
+  },
+
+  {
+    "VidocqH/lsp-lens.nvim",
+    event = "LspAttach",
+    config = true,
+  },
+
+  {
+    "Fildo7525/pretty_hover",
+    event = "LspAttach",
+    opts = {},
+  },
+
   -- Extra Utility
   {
     "simrat39/symbols-outline.nvim",
