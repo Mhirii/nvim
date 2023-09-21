@@ -1,11 +1,22 @@
 local M ={}
 
-M.general = {
+M.general = { 
   n = {
     ["<C-h>"] = { "<cmd> TmuxNavigateLeft<CR>", "window left" },
     ["<C-l>"] = { "<cmd> TmuxNavigateLeft<CR>", "window right" },
     ["<C-j>"] = { "<cmd> TmuxNavigateLeft<CR>", "window down" },
     ["<C-k>"] = { "<cmd> TmuxNavigateLeft<CR>", "window up" }
+  }
+}
+
+M.Telescope = {
+  n = {
+  ["<leader>fre"] = {
+      function()
+        require("telescope").extensions.refactoring.refactors()
+      end,
+      " Structural Search",
+    },
   }
 }
 
@@ -120,5 +131,30 @@ M.hop = {
     ["<leader><leader>k"] = { "<cmd> HopLine <CR>", "hint line" },
   },
 }
+
+M.development = {
+  n = {
+    ["<leader>i"] = {
+      function()
+        require("nvim-toggler").toggle()
+      end,
+      "󰌁 Invert text",
+    },
+    ["<leader>fm"] = {
+      function()
+        vim.lsp.buf.format { async = true }
+      end,
+      " Lsp formatting",
+    },
+    ["<leader>bi"] = {
+      function()
+        require("nvim-biscuits").toggle_biscuits()
+      end,
+      "󰆘 Toggle context",
+    },
+    ["<A-p>"] = { "<CMD>Colortils picker<CR>", " Delete word" },
+  },
+}
+
 
 return M

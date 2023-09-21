@@ -195,6 +195,32 @@ local plugins = {
   },
 
   {
+    "code-biscuits/nvim-biscuits",
+    event = "LspAttach",
+    config = function()
+      require "custom.configs.biscuits"
+    end,
+  },
+
+  {
+    "ThePrimeagen/refactoring.nvim",
+    event = "BufRead",
+    config = function()
+      require "custom.configs.refactoring"
+    end,
+  },
+
+  {
+    "nguyenvukhang/nvim-toggler",
+    event = "BufReadPost",
+    config = function()
+      require("nvim-toggler").setup {
+        remove_default_keybinds = true,
+      }
+    end,
+  },
+
+  {
     "phaazon/hop.nvim",
     event = "BufReadPost",
     branch = "v2",
