@@ -172,6 +172,15 @@ local plugins = {
     end
   },
 
+  {
+    "phaazon/hop.nvim",
+    event = "BufReadPost",
+    branch = "v2",
+    config = function()
+      require "custom.configs.hop"
+    end,
+  },
+
 }
 
 
