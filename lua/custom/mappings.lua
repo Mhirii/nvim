@@ -83,7 +83,7 @@ M.lspsaga = {
     ["<leader>."] = { "<CMD>CodeActionMenu<CR>", "󰅱 Code Action" },
     ["<leader>gf"] = {
       function()
-        vim.cmd "Lspsaga lsp_finder"
+        vim.cmd "Lspsaga finder"
       end,
       " Go to definition",
     },
