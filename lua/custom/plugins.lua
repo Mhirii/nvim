@@ -4,9 +4,15 @@ local plugins = {
     lazy = false,
   },
 
-  {"elkowar/yuck.vim",
+  {
+    "elkowar/yuck.vim",
     lazy = false,
     ft = "yuck",
+  },
+
+  {
+    "luckasRanarison/tree-sitter-hypr",
+    ft = "hypr",
   },
 
   {
