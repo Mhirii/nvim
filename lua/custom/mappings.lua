@@ -1,5 +1,21 @@
 local M ={}
 
+local function move_or_create_win(key)
+  local fn = vim.fn
+  local curr_win = fn.winnr()
+  vim.cmd("wincmd " .. key) --> attempt to move
+
+  if curr_win == fn.winnr() then --> didn't move, so create a split
+    if key == "h" or key == "l" then
+      vim.cmd "wincmd v"
+    else
+      vim.cmd "wincmd s"
+    end
+
+    vim.cmd("wincmd " .. key)
+  end
+end
+
 M.general = { 
   n = {
     ["<C-h>"] = { "<cmd> TmuxNavigateLeft<CR>", "window left" },
@@ -11,13 +27,74 @@ M.general = {
 
 M.Telescope = {
   n = {
-  ["<leader>fre"] = {
+    ["<leader>fk"] = { "<CMD>Telescope keymaps<CR>", " Find keymaps" },
+    ["<leader>fs"] = { "<CMD>Telescope lsp_document_symbols<CR>", " Find document symbols" },
+    ["<leader>fr"] = { "<CMD>Telescope frecency<CR>", " Recent files" },
+    ["<leader>rf"] = {
       function()
         require("telescope").extensions.refactoring.refactors()
       end,
-      " Structural Search",
+      " Refactor",
+    },
+    ["<leader>fc"] = {
+      "<CMD>Telescope current_buffer_fuzzy_find fuzzy=false case_mode=ignore_case<CR>",
+      " Find current file",
     },
   }
+}
+
+M.text = {
+  i = {
+    -- Move line up and down
+    ["<C-Up>"] = { "<CMD>m .-2<CR>==", "󰜸 Move line up" },
+    ["<C-Down>"] = { "<CMD>m .+1<CR>==", "󰜯 Move line down" },
+
+    -- Navigate
+    ["<A-Left>"] = { "<ESC>I", " Move to beginning of line" },
+    ["<A-Right>"] = { "<ESC>A", " Move to end of line" },
+    ["<A-d>"] = { "<ESC>diw", " Delete word" },
+    ["<S-CR>"] = {
+      function()
+        vim.cmd "normal o"
+      end,
+      " New line",
+    },
+  },
+
+  n={
+    ["<C-Up>"] = { "<CMD>m .-2<CR>==", "󰜸 Move line up" },
+    ["<C-Down>"] = { "<CMD>m .+1<CR>==", "󰜯 Move line down" },
+    ["<leader>ra"] = {
+      function()
+        require("nvchad.renamer").open()
+      end,
+      "󰑕 LSP rename",
+    },
+  },
+
+  -- hello
+  -- hello
+  v = {
+    ["<C-Up>"] = { ":m'<-2<CR>gv=gv", "󰜸 Move selection up", opts = { silent = true } },
+    ["<C-Down>"] = { ":m'>+1<CR>gv=gv", "󰜯 Move selection down", opts = { silent = true } },
+    ["<Home>"] = { "gg", "Home" },
+    ["<End>"] = { "G", "End" },
+    ["y"] = { "y`]", "Yank and move to end" },
+    -- Indent backward/forward:
+    ["<"] = { "<gv", " Ident backward", opts = { silent = false } },
+    [">"] = { ">gv", " Ident forward", opts = { silent = false } },
+
+    ["<C-Left>"] = { "<ESC>_", "󰜲 Move to beginning of line" },
+    ["<C-Right>"] = { "<ESC>$", "󰜵 Move to end of line" },
+  },
+
+  c = {
+    -- Autocomplete for brackets:
+    ["("] = { "()<left>", "Auto complete (", opts = { silent = false } },
+    ["<"] = { "<><left>", "Auto complete <", opts = { silent = false } },
+    ['"'] = { '""<left>', [[Auto complete "]], opts = { silent = false } },
+    ["'"] = { "''<left>", "Auto complete '", opts = { silent = false } },
+  },
 }
 
 M.dap = {
@@ -153,6 +230,59 @@ M.development = {
       "󰆘 Toggle context",
     },
     ["<A-p>"] = { "<CMD>Colortils picker<CR>", " Delete word" },
+  },
+}
+
+M.window = {
+  n = {
+    ["<leader><leader>h"] = { "<CMD>vs <CR>", "󰤼 Vertical split", opts = { nowait = true } },
+    ["<leader><leader>v"] = { "<CMD>sp <CR>", "󰤻 Horizontal split", opts = { nowait = true } },
+  },
+}
+
+M.split = {
+  n = {
+    ["<C-h>"] = {
+      function()
+        move_or_create_win "h"
+      end,
+      "[h]: Move to window on the left or create a split",
+    },
+    ["<C-j>"] = {
+      function()
+        move_or_create_win "j"
+      end,
+      "[j]: Move to window below or create a vertical split",
+    },
+    ["<C-k>"] = {
+      function()
+        move_or_create_win "k"
+      end,
+      "[k]: Move to window above or create a vertical split",
+    },
+    ["<C-l>"] = {
+      function()
+        move_or_create_win "l"
+      end,
+      "[l]: Move to window on the right or create a split",
+    },
+  },
+}
+
+M.fold = {
+  n = {
+    ["<leader>a"] = {
+      function()
+        require("fold-cycle").toggle_all()
+      end,
+      "󰴋 Toggle folder",
+    },
+    ["<leader>fp"] = {
+      function()
+        require("fold-preview").toggle_preview()
+      end,
+      "󱞊 Fold preview",
+    },
   },
 }
 
