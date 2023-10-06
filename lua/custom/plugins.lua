@@ -1,6 +1,8 @@
+local overrides = require "custom.configs.overrides"
 local plugins = {
 
 
+  --- >>> base <<<
   { "BrunoKrugel/nvcommunity" },
 
   {
@@ -78,6 +80,35 @@ local plugins = {
     end,
   },
 
+  -- Overrides
+  {
+    "williamboman/mason.nvim",
+    opts = overrides.mason,
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = overrides.treesitter,
+  },
+  --
+
+  {
+    "hrsh7th/nvim-cmp",
+    opts = function ()
+      local M = require "plugins.configs.cmp"
+      table.insert(M.sources, {name = "crates"})
+      return M
+    end
+  },
+
+  {
+    "jose-elias-alvarez/null-ls.nvim",
+    ft = {"python", "go", "typescript"},
+    opts = function()
+      return require "custom.configs.null-ls"
+    end,
+  },
+  --- >>> debug <<<
   {
     "mfussenegger/nvim-dap",
     config = function (_, opts)
@@ -104,23 +135,8 @@ local plugins = {
     end
   },
 
-  {
-    "hrsh7th/nvim-cmp",
-    opts = function ()
-      local M = require "plugins.configs.cmp"
-      table.insert(M.sources, {name = "crates"})
-      return M
-    end
-  },
 
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    ft = {"python", "go", "typescript"},
-    opts = function()
-      return require "custom.configs.null-ls"
-    end,
-  },
-
+  --- >>> Languages <<<
   -- Rust
   {
     "rust-lang/rust.vim",
@@ -194,8 +210,15 @@ local plugins = {
     end,
   },
 
+  --others
+  {"elkowar/yuck.vim",
+    lazy = false,
+    ft = "yuck",
+  },
 
-  -- LSP
+  { "luckasRanarison/tree-sitter-hypr"},
+
+  --- >>> LSP <<<
   {
     "nvimdev/lspsaga.nvim",
     event = "LspAttach",
@@ -216,7 +239,7 @@ local plugins = {
     opts = {},
   },
 
-  -- Extra Utility
+  --- >>> Utility <<<
   {
     "simrat39/symbols-outline.nvim",
     lazy=false,
@@ -241,14 +264,6 @@ local plugins = {
   },
 
   {
-    "code-biscuits/nvim-biscuits",
-    event = "LspAttach",
-    config = function()
-      require "custom.configs.biscuits"
-    end,
-  },
-
-  {
     "ThePrimeagen/refactoring.nvim",
     event = "BufRead",
     config = function()
@@ -266,6 +281,17 @@ local plugins = {
     end,
   },
 
+  --- >>> Quality of Life <<<
+  {
+    "code-biscuits/nvim-biscuits",
+    event = "LspAttach",
+    config = function()
+      require "custom.configs.biscuits"
+    end,
+  },
+
+
+  --- >>> Movement <<<
   {
     "phaazon/hop.nvim",
     event = "BufReadPost",
@@ -274,17 +300,27 @@ local plugins = {
       require "custom.configs.hop"
     end,
   },
+
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,
   },
 
-  {"elkowar/yuck.vim",
-    lazy = false,
-    ft = "yuck",
+  --- >>> UI <<<
+  {
+    "stevearc/dressing.nvim",
+
+    event = "VeryLazy", -- FIXME: maybe lazy loadable?
+
+    config = function(_, opts)
+      require("dressing").setup(opts)
+    end,
+
+    opts = {
+      default_prompt = "❯ ",
+    },
   },
 
-  { "luckasRanarison/tree-sitter-hypr"},
 
 
 }
