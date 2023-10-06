@@ -1,8 +1,9 @@
 local overrides = require "custom.configs.overrides"
 local plugins = {
 
-
-  --- >>> base <<<
+  --         ╭──────────────────────────────────────────────────────────╮
+  --         │                       >> base <<<                        │
+  --         ╰──────────────────────────────────────────────────────────╯
   { "BrunoKrugel/nvcommunity" },
 
   {
@@ -25,8 +26,8 @@ local plugins = {
         "css-lsp",
         "html-lsp",
         -- "deno",
-      }
-    }
+      },
+    },
   },
 
   {
@@ -74,7 +75,7 @@ local plugins = {
       },
       "williamboman/mason-lspconfig.nvim",
     },
-    config = function ()
+    config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
     end,
@@ -94,34 +95,33 @@ local plugins = {
 
   {
     "hrsh7th/nvim-cmp",
-    opts = function ()
-      local M = require "plugins.configs.cmp"
-      table.insert(M.sources, {name = "crates"})
-      return M
-    end
+    dependencies = require("custom.configs.cmp").dependencies,
+    opts = require("custom.configs.cmp").opts,
   },
 
   {
     "jose-elias-alvarez/null-ls.nvim",
-    ft = {"python", "go", "typescript"},
+    ft = { "python", "go", "typescript" },
     opts = function()
       return require "custom.configs.null-ls"
     end,
   },
-  --- >>> debug <<<
+  --         ╭──────────────────────────────────────────────────────────╮
+  --         │                       >>> debug <<<                      │
+  --         ╰──────────────────────────────────────────────────────────╯
   {
     "mfussenegger/nvim-dap",
-    config = function (_, opts)
-      require("core.utils").load_mappings("dap")
-    end
+    config = function(_, opts)
+      require("core.utils").load_mappings "dap"
+    end,
   },
 
   {
     "rcarriga/nvim-dap-ui",
     dependencies = "mfussenegger/nvim-dap",
     config = function()
-      local dap = require("dap")
-      local dapui = require("dapui")
+      local dap = require "dap"
+      local dapui = require "dapui"
       dapui.setup()
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
@@ -132,7 +132,7 @@ local plugins = {
       dap.listeners.before.event_exited["dapui_config"] = function()
         dapui.close()
       end
-    end
+    end,
   },
 
   { -- nvim-dap virtual text
@@ -173,46 +173,48 @@ local plugins = {
 
   {
     "leoluz/nvim-dap-go",
-    ft="go",
+    ft = "go",
     dependencies = "mfussenegger/nvim-dap",
-    config = function (_, opts)
+    config = function(_, opts)
       require("dap-go").setup(opts)
-    end
+    end,
   },
 
-  --- >>> Languages <<<
+  --         ╭──────────────────────────────────────────────────────────╮
+  --         │                    >>> Languages <<<                     │
+  --         ╰──────────────────────────────────────────────────────────╯
   -- Rust
   {
     "rust-lang/rust.vim",
     ft = "rust",
-    init = function ()
+    init = function()
       vim.g.rustfmt_autosave = 1
-    end
+    end,
   },
 
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",
     dependencies = "neovim/nvim-lspconfig",
-    opts = function ()
+    opts = function()
       return require "custom.configs.rust-tools"
     end,
     config = function(_, opts)
-      require('rust-tools').setup(opts)
-    end
+      require("rust-tools").setup(opts)
+    end,
   },
 
   {
-    'saecki/crates.nvim',
-    ft = {"toml"},
-    config = function (_, opts)
-      local crates = require("crates")
+    "saecki/crates.nvim",
+    ft = { "toml" },
+    config = function(_, opts)
+      local crates = require "crates"
       crates.setup(opts)
       crates.show()
-    end
+    end,
   },
 
--- Python
+  -- Python
   {
     "mfussenegger/nvim-dap-python",
     ft = "python",
@@ -223,11 +225,11 @@ local plugins = {
     config = function(_, opts)
       local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
       require("dap-python").setup(path)
-      require("core.utils").load_mappings("dap_python")
+      require("core.utils").load_mappings "dap_python"
     end,
   },
 
-  --Go 
+  --Go
   -- {
   --  "dreamsofcode-io/nvim-dap-go",
   --   ft = "go",
@@ -242,7 +244,7 @@ local plugins = {
     ft = "go",
     config = function(_, opts)
       require("gopher").setup(opts)
-      require("core.utils").load_mappings("gopher")
+      require("core.utils").load_mappings "gopher"
     end,
     build = function()
       vim.cmd [[silent! GoInstallDeps]]
@@ -250,14 +252,13 @@ local plugins = {
   },
 
   --others
-  {"elkowar/yuck.vim",
-    lazy = false,
-    ft = "yuck",
-  },
+  { "elkowar/yuck.vim", lazy = false, ft = "yuck" },
 
-  { "luckasRanarison/tree-sitter-hypr"},
+  { "luckasRanarison/tree-sitter-hypr" },
 
-  --- >>> LSP <<<
+  --         ╭──────────────────────────────────────────────────────────╮
+  --         │                       >>> LSP <<<                        │
+  --         ╰──────────────────────────────────────────────────────────╯
   {
     "nvimdev/lspsaga.nvim",
     event = "LspAttach",
@@ -270,7 +271,7 @@ local plugins = {
     "VidocqH/lsp-lens.nvim",
     event = "LspAttach",
     config = true,
-    enable = true
+    enable = true,
   },
 
   {
@@ -279,7 +280,9 @@ local plugins = {
     opts = {},
   },
 
-  --- >>> Treesitter <<<
+  --         ╭──────────────────────────────────────────────────────────╮
+  --         │                    >>> Treesitter <<<                    │
+  --         ╰──────────────────────────────────────────────────────────╯
   {
     "Wansmer/treesj",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
@@ -317,17 +320,19 @@ local plugins = {
     },
   },
 
-  --- >>> Utility <<<
+  --         ╭──────────────────────────────────────────────────────────╮
+  --         │                     >>> Utility <<<                      │
+  --         ╰──────────────────────────────────────────────────────────╯
   {
     "simrat39/symbols-outline.nvim",
-    lazy=false,
-    opts = function ()
+    lazy = false,
+    opts = function()
       return require "custom.configs.symbols"
     end,
     config = function(_, opts)
       require("symbols-outline").setup(opts)
-      require("core.utils").load_mappings("symbols_outline")
-    end
+      require("core.utils").load_mappings "symbols_outline"
+    end,
   },
 
   {
@@ -335,10 +340,10 @@ local plugins = {
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
     event = "VeryLazy",
     config = function()
-        require("nvim-surround").setup({
-            -- Configuration here, or leave empty to use defaults
-        })
-    end
+      require("nvim-surround").setup {
+        -- Configuration here, or leave empty to use defaults
+      }
+    end,
   },
 
   {
@@ -359,7 +364,9 @@ local plugins = {
     end,
   },
 
-  --- >>> Quality of Life <<<
+  --         ╭──────────────────────────────────────────────────────────╮
+  --         │                 >>> Quality of Life <<<                  │
+  --         ╰──────────────────────────────────────────────────────────╯
   {
     "code-biscuits/nvim-biscuits",
     event = "LspAttach",
@@ -426,7 +433,6 @@ local plugins = {
       max_filename_length = 0,
     },
   },
-
 
   {
     "LudoPinelli/comment-box.nvim",
@@ -500,8 +506,9 @@ local plugins = {
     },
   },
 
-
-  --- >>> Folding <<<
+  --         ╭──────────────────────────────────────────────────────────╮
+  --         │                     >>> Folding <<<                      │
+  --         ╰──────────────────────────────────────────────────────────╯
   { -- Folding. The fancy way
     "kevinhwang91/nvim-ufo",
 
@@ -524,9 +531,9 @@ local plugins = {
     opts = {},
   },
 
-
-
-  --- >>> Movement <<<
+  --         ╭──────────────────────────────────────────────────────────╮
+  --         │                     >>> Movement <<<                     │
+  --         ╰──────────────────────────────────────────────────────────╯
   {
     "phaazon/hop.nvim",
     event = "BufReadPost",
@@ -648,7 +655,9 @@ local plugins = {
       require("smart-splits").setup()
     end,
   },
-  --- >>> UI <<<
+  --         ╭──────────────────────────────────────────────────────────╮
+  --         │                        >>> UI <<<                        │
+  --         ╰──────────────────────────────────────────────────────────╯
   {
     "stevearc/dressing.nvim",
 
@@ -662,12 +671,8 @@ local plugins = {
       default_prompt = "❯ ",
     },
   },
-
-
-
 }
 
 --TODO: cmp
 
 return plugins
-
