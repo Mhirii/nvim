@@ -1,28 +1,12 @@
-local M ={}
+local M = {}
 
-local function move_or_create_win(key)
-  local fn = vim.fn
-  local curr_win = fn.winnr()
-  vim.cmd("wincmd " .. key) --> attempt to move
-
-  if curr_win == fn.winnr() then --> didn't move, so create a split
-    if key == "h" or key == "l" then
-      vim.cmd "wincmd v"
-    else
-      vim.cmd "wincmd s"
-    end
-
-    vim.cmd("wincmd " .. key)
-  end
-end
-
-M.general = { 
+M.general = {
   n = {
     ["<C-h>"] = { "<cmd> TmuxNavigateLeft<CR>", "window left" },
     ["<C-l>"] = { "<cmd> TmuxNavigateLeft<CR>", "window right" },
     ["<C-j>"] = { "<cmd> TmuxNavigateLeft<CR>", "window down" },
-    ["<C-k>"] = { "<cmd> TmuxNavigateLeft<CR>", "window up" }
-  }
+    ["<C-k>"] = { "<cmd> TmuxNavigateLeft<CR>", "window up" },
+  },
 }
 
 M.Telescope = {
@@ -40,7 +24,7 @@ M.Telescope = {
       "<CMD>Telescope current_buffer_fuzzy_find fuzzy=false case_mode=ignore_case<CR>",
       " Find current file",
     },
-  }
+  },
 }
 
 M.text = {
@@ -61,7 +45,7 @@ M.text = {
     },
   },
 
-  n={
+  n = {
     ["<C-Up>"] = { "<CMD>m .-2<CR>==", "󰜸 Move line up" },
     ["<C-Down>"] = { "<CMD>m .+1<CR>==", "󰜯 Move line down" },
     ["<leader>ra"] = {
@@ -100,16 +84,16 @@ M.text = {
 M.dap = {
   plugin = true,
   n = {
-    ["<leader>db"] = {"<cmd> DapToggleBreakpoint <CR>", "Add Breakpoint at line"},
+    ["<leader>db"] = { "<cmd> DapToggleBreakpoint <CR>", "Add Breakpoint at line" },
     ["<leader>dus"] = {
-      function ()
-        local widgets = require('dap.ui.widgets');
-        local sidebar = widgets.sidebar(widgets.scopes);
-        sidebar.open();
+      function()
+        local widgets = require "dap.ui.widgets"
+        local sidebar = widgets.sidebar(widgets.scopes)
+        sidebar.open()
       end,
-      "Open Debugging sidebar"
-    }
-  }
+      "Open Debugging sidebar",
+    },
+  },
 }
 
 M.dap_python = {
@@ -117,10 +101,10 @@ M.dap_python = {
   n = {
     ["<leader>dpr"] = {
       function()
-        require('dap-python').test_method()
-      end
-    }
-  }
+        require("dap-python").test_method()
+      end,
+    },
+  },
 }
 
 M.dap_go = {
@@ -128,17 +112,17 @@ M.dap_go = {
   n = {
     ["<leader>dgt"] = {
       function()
-        require('dap-go').debug_test()
+        require("dap-go").debug_test()
       end,
-      "Debug go test"
+      "Debug go test",
     },
     ["<leader>dgl"] = {
       function()
-        require('dap-go').debug_last()
+        require("dap-go").debug_last()
       end,
-      "Debug last go test"
-    }
-  }
+      "Debug last go test",
+    },
+  },
 }
 
 M.gopher = {
@@ -146,13 +130,13 @@ M.gopher = {
   n = {
     ["<leader>gsj"] = {
       "<cmd> GoTagAdd json <CR>",
-      "Add json struct tags"
+      "Add json struct tags",
     },
     ["<leader>gsy"] = {
       "<cmd> GoTagAdd yaml <CR>",
-      "Add yaml struct tags"
-    }
-  }
+      "Add yaml struct tags",
+    },
+  },
 }
 
 M.lspsaga = {
@@ -164,19 +148,13 @@ M.lspsaga = {
       end,
       " Go to definition",
     },
-    ["gd"] = {
-      "<CMD>Lspsaga goto_definition<CR>",
-      " Go to definition",
-    },
-    ["<leader>lp"] = {
-      "<CMD>Lspsaga peek_definition<CR>",
-      " Peek definition",
-    },
+    ["gd"] = { "<CMD>Lspsaga goto_definition<CR>", " Go to definition" },
+    ["<leader>lp"] = { "<CMD>Lspsaga peek_definition<CR>", " Peek definition" },
     ["<leader>k"] = {
-      -- "<CMD>Lspsaga hover_doc<CR>",
-      function()
-        require("pretty_hover").hover()
-      end,
+      "<CMD>Lspsaga hover_doc<CR>",
+      -- function()
+      --   require("pretty_hover").hover()
+      -- end,
       "󱙼 Hover lsp",
     },
     ["<leader>o"] = { "<CMD>Lspsaga outline<CR>", " Show Outline" },
@@ -196,8 +174,8 @@ M.lspsaga = {
 M.symbols_outline = {
   plugin = true,
   n = {
-    ["<leader>s"] = {"<cmd> SymbolsOutline <CR>"}
-  }
+    ["<leader>s"] = { "<cmd> SymbolsOutline <CR>" },
+  },
 }
 
 M.hop = {
@@ -240,35 +218,6 @@ M.window = {
   },
 }
 
-M.split = {
-  n = {
-    ["<C-h>"] = {
-      function()
-        move_or_create_win "h"
-      end,
-      "[h]: Move to window on the left or create a split",
-    },
-    ["<C-j>"] = {
-      function()
-        move_or_create_win "j"
-      end,
-      "[j]: Move to window below or create a vertical split",
-    },
-    ["<C-k>"] = {
-      function()
-        move_or_create_win "k"
-      end,
-      "[k]: Move to window above or create a vertical split",
-    },
-    ["<C-l>"] = {
-      function()
-        move_or_create_win "l"
-      end,
-      "[l]: Move to window on the right or create a split",
-    },
-  },
-}
-
 M.fold = {
   n = {
     ["<leader>a"] = {
@@ -283,43 +232,44 @@ M.fold = {
       end,
       "󱞊 Fold preview",
     },
+    ["<leader>fe"] = { "<CMD> UfoEnableFold <CR>", "Enable UFO folds" },
+    ["<leader>fd"] = { "<CMD> UfoDisableFold <CR>", "Disable UFO folds" },
   },
 }
 
 M.refactor = {
 
-  n={
-    [ "<leader>rr" ] = {
+  n = {
+    ["<leader>rr"] = {
       function()
         require("refactoring").select_refactor()
       end,
       "List Refactorings",
     },
-   [ "<leader>re" ]={ "<cmd> Refactor extract<CR>",  "Extract To Function" },
-   [ "<leader>rv" ]={ "<cmd> Refactor extract_var<CR>",  "Extract To Variable" },
-   [ "<leader>rb" ]={ "<cmd> Refactor extract_block<CR>",  "Extract To Block" },
-   [ "<leader>rg" ]={ "<cmd> Refactor extract_block_to_file<CR>",  "Extract Block To File" },
-   [ "<leader>rn" ]={ "<cmd> Refactor refactor_names<CR>",  "Refactor names" },
-   [ "<leader>rf" ]={ "<cmd> Refactor extract_to_file<CR>",  "Extract to file" },
-   [ "<leader>ri" ]={ "<cmd> Refactor inline_var<CR>",  "Inline Variable" },
+    ["<leader>re"] = { "<cmd> Refactor extract<CR>", "Extract To Function" },
+    ["<leader>rv"] = { "<cmd> Refactor extract_var<CR>", "Extract To Variable" },
+    ["<leader>rb"] = { "<cmd> Refactor extract_block<CR>", "Extract To Block" },
+    ["<leader>rg"] = { "<cmd> Refactor extract_block_to_file<CR>", "Extract Block To File" },
+    ["<leader>rn"] = { "<cmd> Refactor refactor_names<CR>", "Refactor names" },
+    ["<leader>rf"] = { "<cmd> Refactor extract_to_file<CR>", "Extract to file" },
+    ["<leader>ri"] = { "<cmd> Refactor inline_var<CR>", "Inline Variable" },
   },
 
   v = {
-    [ "<leader>rr" ] = {
+    ["<leader>rr"] = {
       function()
         require("refactoring").select_refactor()
       end,
       "List Refactorings",
     },
-   [ "<leader>re" ]={ "<cmd> Refactor extract<CR>",  "Extract To Function" },
-   [ "<leader>rv" ]= {"<cmd> Refactor extract_var<CR>",  "Extract To Variable" },
-   [ "<leader>rb" ]= {"<cmd> Refactor extract_block<CR>",  "Extract To Block" },
-   [ "<leader>rg" ]= {"<cmd> Refactor extract_block_to_file<CR>",  "Extract Block To File" },
-   [ "<leader>rn" ]= {"<cmd> Refactor refactor_names<CR>",  "Refactor names" },
-   [ "<leader>rf" ]= {"<cmd> Refactor extract_to_file<CR>",  "Extract to file" },
-   [ "<leader>ri" ]= {"<cmd> Refactor inline_var<CR>",  "Inline Variable" },
+    ["<leader>re"] = { "<cmd> Refactor extract<CR>", "Extract To Function" },
+    ["<leader>rv"] = { "<cmd> Refactor extract_var<CR>", "Extract To Variable" },
+    ["<leader>rb"] = { "<cmd> Refactor extract_block<CR>", "Extract To Block" },
+    ["<leader>rg"] = { "<cmd> Refactor extract_block_to_file<CR>", "Extract Block To File" },
+    ["<leader>rn"] = { "<cmd> Refactor refactor_names<CR>", "Refactor names" },
+    ["<leader>rf"] = { "<cmd> Refactor extract_to_file<CR>", "Extract to file" },
+    ["<leader>ri"] = { "<cmd> Refactor inline_var<CR>", "Inline Variable" },
   },
 }
-
 
 return M
