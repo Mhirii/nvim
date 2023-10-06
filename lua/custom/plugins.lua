@@ -1,8 +1,13 @@
 local plugins = {
+
+
+  { "BrunoKrugel/nvcommunity" },
+
   {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
+        "lua-language-server",
         -- >> Rust Specefic
         "rust-analyzer",
         -- >> Python Specefic
@@ -58,6 +63,15 @@ local plugins = {
 
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      {
+        "nvimtools/none-ls.nvim",
+        config = function()
+          require "custom.configs.null-ls"
+        end,
+      },
+      "williamboman/mason-lspconfig.nvim",
+    },
     config = function ()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
