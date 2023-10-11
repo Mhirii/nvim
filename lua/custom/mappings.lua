@@ -2,10 +2,15 @@ local M = {}
 
 M.general = {
   n = {
-    ["<C-h>"] = { "<cmd> TmuxNavigateLeft<CR>", "window left" },
-    ["<C-l>"] = { "<cmd> TmuxNavigateLeft<CR>", "window right" },
-    ["<C-j>"] = { "<cmd> TmuxNavigateLeft<CR>", "window down" },
-    ["<C-k>"] = { "<cmd> TmuxNavigateLeft<CR>", "window up" },
+    -- ["<C-h>"] = { "<cmd> TmuxNavigateLeft<CR>", "window left" },
+    -- ["<C-l>"] = { "<cmd> TmuxNavigateLeft<CR>", "window right" },
+    -- ["<C-j>"] = { "<cmd> TmuxNavigateLeft<CR>", "window down" },
+    -- ["<C-k>"] = { "<cmd> TmuxNavigateLeft<CR>", "window up" },
+
+    ["<C-h>"] = { "<C-w>h", "Window left" },
+    ["<C-l>"] = { "<C-w>l", "Window right" },
+    ["<C-j>"] = { "<C-w>j", "Window down" },
+    ["<C-k>"] = { "<C-w>k", "Window up" },
   },
 }
 
