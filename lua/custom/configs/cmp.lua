@@ -80,6 +80,7 @@ M.dependencies = {
   "hrsh7th/cmp-nvim-lsp-document-symbol", -- /@ search symbols
   "hrsh7th/cmp-nvim-lua",
   "hrsh7th/cmp-path",
+  "hrsh7th/cmp-cmdline",
   "ray-x/cmp-treesitter", -- cmp from treesitter highlights
   "rcarriga/cmp-dap",
   "saadparwaiz1/cmp_luasnip",

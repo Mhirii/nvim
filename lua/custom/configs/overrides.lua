@@ -55,8 +55,11 @@ M.mason = {
 
     -- Python
     -- TODO: Remove mason-dap-install plugin and use the default
-    -- "black",
-    -- "debugpy",
+    "black",
+    "debugpy",
+    "mypy",
+    "ruff",
+    "pyright",
   },
 }
 

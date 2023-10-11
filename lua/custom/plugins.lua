@@ -10,21 +10,21 @@ local plugins = {
     "williamboman/mason.nvim",
     opts = {
       ensure_installed = {
-        "lua-language-server",
+        -- "lua-language-server",
         -- >> Rust Specefic
-        "rust-analyzer",
+        -- "rust-analyzer",
         -- >> Python Specefic
-        -- "black",
-        -- "debugpy",
-        -- "mypy",
-        -- "ruff",
-        -- "pyright",
+        "black",
+        "debugpy",
+        "mypy",
+        "ruff",
+        "pyright",
         -- >> Go Specefic
         "gopls",
         -- >> TypeScript
         -- "typescript-language-server",
-        "css-lsp",
-        "html-lsp",
+        -- "css-lsp",
+        -- "html-lsp",
         -- "deno",
       },
     },
@@ -98,6 +98,8 @@ local plugins = {
     dependencies = require("custom.configs.cmp").dependencies,
     opts = require("custom.configs.cmp").opts,
   },
+
+  { "hrsh7th/cmp-cmdline" },
 
   {
     "jose-elias-alvarez/null-ls.nvim",
