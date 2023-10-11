@@ -250,7 +250,7 @@ M.refactor = {
     ["<leader>rv"] = { "<cmd> Refactor extract_var<CR>", "Extract To Variable" },
     ["<leader>rb"] = { "<cmd> Refactor extract_block<CR>", "Extract To Block" },
     ["<leader>rg"] = { "<cmd> Refactor extract_block_to_file<CR>", "Extract Block To File" },
-    ["<leader>rn"] = { "<cmd> Refactor refactor_names<CR>", "Refactor names" },
+    ["<leader>rw"] = { "<cmd> Refactor refactor_names<CR>", "Refactor names" },
     ["<leader>rf"] = { "<cmd> Refactor extract_to_file<CR>", "Extract to file" },
     ["<leader>ri"] = { "<cmd> Refactor inline_var<CR>", "Inline Variable" },
   },
