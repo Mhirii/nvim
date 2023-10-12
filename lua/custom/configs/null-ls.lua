@@ -12,8 +12,9 @@ local opts = {
 
     -- Python
     b.formatting.black,
-    b.diagnostics.mypy,
+    -- b.diagnostics.mypy,
     b.diagnostics.ruff,
+    b.diagnostics.pyflakes,
 
     -- Go
     b.formatting.gofumpt,

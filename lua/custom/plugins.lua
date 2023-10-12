@@ -8,26 +8,6 @@ local plugins = {
 
   {
     "williamboman/mason.nvim",
-    opts = {
-      ensure_installed = {
-        -- "lua-language-server",
-        -- >> Rust Specefic
-        -- "rust-analyzer",
-        -- >> Python Specefic
-        "black",
-        "debugpy",
-        "mypy",
-        "ruff",
-        "pyright",
-        -- >> Go Specefic
-        "gopls",
-        -- >> TypeScript
-        -- "typescript-language-server",
-        -- "css-lsp",
-        -- "html-lsp",
-        -- "deno",
-      },
-    },
   },
 
   {
@@ -74,6 +54,7 @@ local plugins = {
         end,
       },
       "williamboman/mason-lspconfig.nvim",
+      "williamboman/mason.nvim",
     },
     config = function()
       require "plugins.configs.lspconfig"
@@ -108,6 +89,7 @@ local plugins = {
       return require "custom.configs.null-ls"
     end,
   },
+
   --         ╭──────────────────────────────────────────────────────────╮
   --         │                       >>> debug <<<                      │
   --         ╰──────────────────────────────────────────────────────────╯

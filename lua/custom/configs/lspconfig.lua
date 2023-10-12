@@ -4,7 +4,7 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require("lspconfig")
 local util = require "lspconfig/util"
 
-local servers = {}
+local servers = {"pylsp",}
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup{
@@ -13,11 +13,17 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-lspconfig.pyright.setup({
+lspconfig.pylsp.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = {"python"},
 })
+
+-- lspconfig.pyright.setup({
+--   on_attach = on_attach,
+--   capabilities = capabilities,
+--   filetypes = {"python"},
+-- })
 
 lspconfig.gopls.setup {
   on_attach = on_attach,

@@ -15,6 +15,7 @@ M.treesitter = {
     "go",
     "markdown",
     "markdown_inline",
+    "python",
   },
   indent = {
     enable = true,
@@ -32,34 +33,36 @@ M.mason = {
     "lua-language-server",
     "stylua",
 
-    -- web dev stuff
-    "css-lsp",
-    "html-lsp",
-    "typescript-language-server",
-    -- "deno",
-    "prettier",
+    -- -- web dev stuff
+    -- "css-lsp",
+    -- "html-lsp",
+    -- "typescript-language-server",
 
-    -- c/cpp stuff
-    "clangd",
-    "clang-format",
+    -- -- "deno",
+    -- "prettier",
 
-    -- Rust stuff
-    "rust-analyzer",
+    -- -- c/cpp stuff
+    -- "clangd",
+    -- "clang-format",
 
-    -- Go stuff
-    "gopls",
+    -- -- Rust stuff
+    -- "rust-analyzer",
+
+    -- -- Go stuff
+    -- "gopls",
 
     -- Shell stuff
     "shellcheck",
     "shfmt",
 
-    -- Python
-    -- TODO: Remove mason-dap-install plugin and use the default
+    -- -- Python
+    -- -- TODO: Remove mason-dap-install plugin and use the default
     "black",
     "debugpy",
     "mypy",
+    "pyflakes",
     "ruff",
-    "pyright",
+    "python-lsp-server",
   },
 }
 
