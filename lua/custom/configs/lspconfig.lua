@@ -4,7 +4,7 @@ local capabilities = require("plugins.configs.lspconfig").capabilities
 local lspconfig = require("lspconfig")
 local util = require "lspconfig/util"
 
-local servers = {"pylsp",}
+local servers = {"pylyzer",}
 
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup{
@@ -13,7 +13,7 @@ for _, lsp in ipairs(servers) do
   }
 end
 
-lspconfig.pylsp.setup({
+lspconfig.pylyzer.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = {"python"},

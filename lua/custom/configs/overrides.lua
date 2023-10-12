@@ -61,8 +61,10 @@ M.mason = {
     "debugpy",
     "mypy",
     "pyflakes",
-    "ruff",
+    "ruff", -- linter
+    "pylyzer", -- type checker and lsp
     "python-lsp-server",
+
   },
 }
 
