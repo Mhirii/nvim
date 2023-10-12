@@ -231,7 +231,14 @@ local plugins = {
     end,
   },
 
+  -- Python indent (follows the PEP8 style)
+  { "Vimjas/vim-python-pep8-indent", ft = { "python" } },
+
+  -- Python-related text object
+  { "jeetsukumaran/vim-pythonsense", ft = { "python" } },
+
   --Go
+
   -- {
   --  "dreamsofcode-io/nvim-dap-go",
   --   ft = "go",
@@ -512,6 +519,11 @@ local plugins = {
     },
   },
 
+  {
+    "gelguy/wilder.nvim",
+    build = ":UpdateRemotePlugins",
+  },
+
   --         ╭──────────────────────────────────────────────────────────╮
   --         │                     >>> Folding <<<                      │
   --         ╰──────────────────────────────────────────────────────────╯
@@ -677,6 +689,7 @@ local plugins = {
       default_prompt = "❯ ",
     },
   },
+
 }
 
 --TODO: cmp

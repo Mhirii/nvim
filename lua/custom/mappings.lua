@@ -1,5 +1,11 @@
 local M = {}
 
+M.disabled = {
+  n = {
+    ["<leader>b"] = "",
+  }
+}
+
 M.general = {
   n = {
     -- ["<C-h>"] = { "<cmd> TmuxNavigateLeft<CR>", "window left" },
