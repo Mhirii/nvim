@@ -103,7 +103,7 @@ local plugins = {
 
   {
     "jose-elias-alvarez/null-ls.nvim",
-    ft = { "python", "go", "typescript" },
+    event = "VeryLazy",
     opts = function()
       return require "custom.configs.null-ls"
     end,
@@ -120,6 +120,7 @@ local plugins = {
 
   {
     "rcarriga/nvim-dap-ui",
+    event = "VeryLazy",
     dependencies = "mfussenegger/nvim-dap",
     config = function()
       local dap = require "dap"
@@ -152,6 +153,7 @@ local plugins = {
       "williamboman/mason.nvim",
       "mfussenegger/nvim-dap",
     },
+    event = "VeryLazy",
 
     cmd = { "DapInstall", "DapUninstall" },
     opts = {

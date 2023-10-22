@@ -12,6 +12,7 @@ M.treesitter = {
     "tsx",
     "c",
     "rust",
+    "cpp",
     "go",
     "markdown",
     "markdown_inline",

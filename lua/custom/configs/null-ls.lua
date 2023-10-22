@@ -21,6 +21,9 @@ local opts = {
     b.formatting.goimports_reviser,
     b.formatting.golines,
 
+    -- C++
+    b.formatting.clang_format,
+
     -- markdown
     b.diagnostics.write_good,
     b.diagnostics.textidote, -- LaTeX + Markdown | Grammar + Style
