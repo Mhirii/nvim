@@ -3,7 +3,7 @@ local M = {}
 M.disabled = {
   n = {
     ["<leader>b"] = "",
-  }
+  },
 }
 
 M.general = {
@@ -17,6 +17,18 @@ M.general = {
     ["<C-l>"] = { "<C-w>l", "Window right" },
     ["<C-j>"] = { "<C-w>j", "Window down" },
     ["<C-k>"] = { "<C-w>k", "Window up" },
+  },
+}
+
+M.nvimtree = {
+  plugin = true,
+
+  n = {
+    -- toggle
+    ["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
+
+    -- focus
+    ["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
   },
 }
 
@@ -107,7 +119,7 @@ M.dap = {
     ["<leader>dr"] = {
       "<cmd> DapContinue <CR>",
       "Start or Continue Debugging",
-    }
+    },
   },
 }
 
