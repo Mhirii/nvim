@@ -274,8 +274,8 @@ local plugins = {
     "nvimdev/lspsaga.nvim",
     event = "LspAttach",
     dependencies = {
-        'nvim-treesitter/nvim-treesitter',
-        -- 'nvim-tree/nvim-web-devicons'     -- optional
+      "nvim-treesitter/nvim-treesitter",
+      -- 'nvim-tree/nvim-web-devicons'     -- optional
     },
     config = function()
       require "custom.configs.lspsaga"
@@ -524,6 +524,7 @@ local plugins = {
   {
     "gelguy/wilder.nvim",
     build = ":UpdateRemotePlugins",
+    event = VeryLazy,
   },
 
   --         ╭──────────────────────────────────────────────────────────╮
@@ -691,7 +692,6 @@ local plugins = {
       default_prompt = "❯ ",
     },
   },
-
 }
 
 --TODO: cmp
