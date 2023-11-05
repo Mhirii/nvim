@@ -10,7 +10,7 @@ local options = {
   sync_root_with_cwd = true,
   update_focused_file = {
     enable = true,
-    update_root = true,
+    update_root = false,
   },
   view = {
     adaptive_size = false,

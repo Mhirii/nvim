@@ -1,9 +1,11 @@
 
+
 local present, lspsaga = pcall(require, "lspsaga")
 
 if not present then
   return
 end
+
 
 lspsaga.setup {
   preview = {
@@ -24,7 +26,7 @@ lspsaga.setup {
   },
   code_action = {
     extend_gitsigns = false,
-    show_server_name = false,
+    show_server_name = true,
     num_shortcut = false,
     keys = {
       -- string |table type

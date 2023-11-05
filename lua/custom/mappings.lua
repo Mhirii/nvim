@@ -1,81 +1,101 @@
-local M ={}
+local M = {}
 
-M.general = { 
+M.disabled = {
   n = {
-    ["<C-h>"] = { "<cmd> TmuxNavigateLeft<CR>", "window left" },
-    ["<C-l>"] = { "<cmd> TmuxNavigateLeft<CR>", "window right" },
-    ["<C-j>"] = { "<cmd> TmuxNavigateLeft<CR>", "window down" },
-    ["<C-k>"] = { "<cmd> TmuxNavigateLeft<CR>", "window up" }
-  }
+    ["<leader>b"] = "",
+  },
+}
+
+M.general = {
+  n = {
+    -- ["<C-h>"] = { "<C-w>h", "Window left" },
+    -- ["<C-l>"] = { "<C-w>l", "Window right" },
+    -- ["<C-j>"] = { "<C-w>j", "Window down" },
+    -- ["<C-k>"] = { "<C-w>k", "Window up" },
+    ["<C-h>"] = { "<cmd> TmuxNavigateLeft <CR>", "Window left" },
+    ["<C-l>"] = { "<cmd> TmuxNavigateRight <CR>", "Window right" },
+    ["<C-j>"] = { "<cmd> TmuxNavigateDown <CR>", "Window down" },
+    ["<C-k>"] = { "<cmd> TmuxNavigateUp <CR>", "Window up" },
+  },
+}
+
+M.nvimtree = {
+  plugin = true,
+
+  n = {
+    -- toggle
+    ["<C-n>"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
+    ["<leader>e"] = { "<cmd> NvimTreeToggle <CR>", "Toggle nvimtree" },
+  },
 }
 
 M.Telescope = {
   n = {
-  ["<leader>fre"] = {
+    ["<leader>fs"] = { "<CMD>Telescope lsp_document_symbols<CR>", " Find document symbols" },
+    ["<leader>fr"] = { "<CMD>Telescope frecency<CR>", " Recent files" },
+    ["<leader>rf"] = {
       function()
-        require("telescope").extensions.refactoring.refactors()
+        require("telescope").extensions.refactoring.refactors() -- TODO: telescope refactoring
       end,
-      " Structural Search",
+      " Refactor",
     },
-  }
-}
-
-M.dap = {
-  plugin = true,
-  n = {
-    ["<leader>db"] = {"<cmd> DapToggleBreakpoint <CR>", "Add Breakpoint at line"},
-    ["<leader>dus"] = {
-      function ()
-        local widgets = require('dap.ui.widgets');
-        local sidebar = widgets.sidebar(widgets.scopes);
-        sidebar.open();
-      end,
-      "Open Debugging sidebar"
-    }
-  }
-}
-
-M.dap_python = {
-  plugin = true,
-  n = {
-    ["<leader>dpr"] = {
-      function()
-        require('dap-python').test_method()
-      end
-    }
-  }
-}
-
-M.dap_go = {
-  plugin = true,
-  n = {
-    ["<leader>dgt"] = {
-      function()
-        require('dap-go').debug_test()
-      end,
-      "Debug go test"
+    ["<leader>fc"] = {
+      "<CMD>Telescope current_buffer_fuzzy_find fuzzy=false case_mode=ignore_case<CR>",
+      " Find current file",
     },
-    ["<leader>dgl"] = {
-      function()
-        require('dap-go').debug_last()
-      end,
-      "Debug last go test"
-    }
-  }
+  },
 }
 
-M.gopher = {
-  plugin = true,
-  n = {
-    ["<leader>gsj"] = {
-      "<cmd> GoTagAdd json <CR>",
-      "Add json struct tags"
+M.text = {
+  i = {
+    -- Move line up and down
+    ["<A-Up>"] = { "<CMD>m .-2<CR>==", "󰜸 Move line up" },
+    ["<A-Down>"] = { "<CMD>m .+1<CR>==", "󰜯 Move line down" },
+
+    -- Navigate
+    ["<A-Left>"] = { "<ESC>I", " Move to beginning of line" },
+    ["<A-Right>"] = { "<ESC>A", " Move to end of line" },
+    ["<A-d>"] = { "<ESC>diw", " Delete word" },
+    ["<S-CR>"] = {
+      function()
+        vim.cmd "normal o"
+      end,
+      " New line",
     },
-    ["<leader>gsy"] = {
-      "<cmd> GoTagAdd yaml <CR>",
-      "Add yaml struct tags"
-    }
-  }
+  },
+
+  n = {
+    ["<A-Up>"] = { "<CMD>m .-2<CR>==", "󰜸 Move line up" },
+    ["<A-Down>"] = { "<CMD>m .+1<CR>==", "󰜯 Move line down" },
+    ["<leader>ra"] = {
+      function()
+        require("nvchad.renamer").open()
+      end,
+      "󰑕 LSP rename",
+    },
+  },
+
+  v = {
+    ["<A-Up>"] = { ":m'<-2<CR>gv=gv", "󰜸 Move selection up", opts = { silent = true } },
+    ["<A-Down>"] = { ":m'>+1<CR>gv=gv", "󰜯 Move selection down", opts = { silent = true } },
+    ["<Home>"] = { "gg", "Home" },
+    ["<End>"] = { "G", "End" },
+    ["y"] = { "y`]", "Yank and move to end" },
+    -- Indent backward/forward:
+    ["<"] = { "<gv", " Ident backward", opts = { silent = false } },
+    [">"] = { ">gv", " Ident forward", opts = { silent = false } },
+
+    ["<A-Left>"] = { "<ESC>_", "󰜲 Move to beginning of line" },
+    ["<A-Right>"] = { "<ESC>$", "󰜵 Move to end of line" },
+  },
+
+  c = {
+    -- Autocomplete for brackets:
+    ["("] = { "()<left>", "Auto complete (", opts = { silent = false } },
+    ["<"] = { "<><left>", "Auto complete <", opts = { silent = false } },
+    ['"'] = { '""<left>', [[Auto complete "]], opts = { silent = false } },
+    ["'"] = { "''<left>", "Auto complete '", opts = { silent = false } },
+  },
 }
 
 M.lspsaga = {
@@ -87,16 +107,10 @@ M.lspsaga = {
       end,
       " Go to definition",
     },
-    ["gd"] = {
-      "<CMD>Lspsaga goto_definition<CR>",
-      " Go to definition",
-    },
-    ["<leader>lp"] = {
-      "<CMD>Lspsaga peek_definition<CR>",
-      " Peek definition",
-    },
+    ["gd"] = { "<CMD>Lspsaga goto_definition<CR>", " Go to definition" },
+    ["<leader>pd"] = { "<CMD>Lspsaga peek_definition<CR>", " Peek definition" },
     ["<leader>k"] = {
-      -- "<CMD>Lspsaga hover_doc<CR>",
+      "<CMD>Lspsaga hover_doc<CR>",
       function()
         require("pretty_hover").hover()
       end,
@@ -104,7 +118,7 @@ M.lspsaga = {
     },
     ["<leader>o"] = { "<CMD>Lspsaga outline<CR>", " Show Outline" },
     --  LSP
-    ["gr"] = { "<CMD>Telescope lsp_references<CR>", " Lsp references" },
+    ["<leader>lr"] = { "<CMD>Telescope lsp_references<CR>", " LspSaga references" },
     ["[d"] = { "<CMD>Lspsaga diagnostic_jump_prev<CR>", " Prev Diagnostic" },
     ["]d"] = { "<CMD>Lspsaga diagnostic_jump_next<CR>", " Next Diagnostic" },
     ["<leader>qf"] = {
@@ -116,11 +130,12 @@ M.lspsaga = {
   },
 }
 
-M.symbols_outline = {
-  plugin = true,
+M.glance = {
   n = {
-    ["<leader>s"] = {"<cmd> SymbolsOutline <CR>"}
-  }
+    ["gd"] = { "<CMD>Glance definitions<CR>", " Glance definitions" },
+    ["gr"] = { "<CMD>Glance references<CR>", " Glance references" },
+    ["gD"] = { "<CMD>Glance type_definitions<CR>", " Glance type_definitions" },
+  },
 }
 
 M.hop = {
@@ -146,15 +161,33 @@ M.development = {
       end,
       " Lsp formatting",
     },
-    ["<leader>bi"] = {
-      function()
-        require("nvim-biscuits").toggle_biscuits()
-      end,
-      "󰆘 Toggle context",
-    },
-    ["<A-p>"] = { "<CMD>Colortils picker<CR>", " Delete word" },
   },
 }
 
+M.window = {
+  n = {
+    ["<leader>wh"] = { "<CMD>vs <CR>", "󰤼 Vertical split", opts = { nowait = true } },
+    ["<leader>wv"] = { "<CMD>sp <CR>", "󰤻 Horizontal split", opts = { nowait = true } },
+  },
+}
+
+M.fold = {
+  n = {
+    ["<leader>a"] = {
+      function()
+        require("fold-cycle").toggle_all()
+      end,
+      "󰴋 Toggle folder",
+    },
+    ["<leader>fp"] = {
+      function()
+        require("fold-preview").toggle_preview()
+      end,
+      "󱞊 Fold preview",
+    },
+    ["<leader>fe"] = { "<CMD> UfoEnableFold <CR>", "Enable UFO folds" },
+    ["<leader>fd"] = { "<CMD> UfoDisableFold <CR>", "Disable UFO folds" },
+  },
+}
 
 return M
